@@ -1,0 +1,188 @@
+﻿@{
+    ViewData["Title"] = "HomePage";
+    var member = (DashboardResponse)ViewBag.CountMember;
+    var camp = (DashboardResponse)ViewBag.SumCamp;
+    var serviceOfmonth = (DashboardResponse)ViewBag.SumServiceOfMonth;
+    var costsum = (DashboardResponse)ViewBag.SumCostAll;
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-xs mb-0 text-uppercase font-weight-bold">จำนวนเบอร์ที่ยังใช้งาน</p>
+                                @foreach (var item in member.ListCountMember)
+                                {
+                                    <h5 class="font-weight-bolder">
+                                        @item.CountMember
+                                    </h5>
+                                    <p class="mb-0 text-xs">
+                                        ยกเลิกการใช้งาน :
+                                        <span class="text-danger text-xs font-weight-bolder">@item.CountMemberD</span>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
+                                <i class="fa fa-address-book text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in camp?.ListCamp)
+        {
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <p class="text-xs mb-0 text-uppercase font-weight-bold">จำนวนการใช้งาน @item.Name</p>
+                                    <h5 class="font-weight-bolder">
+                                        @item.CountCamp
+                                    </h5>
+
+                                </div>
+                            </div>
+                            <div class="col-5 text-end">
+                                @if (@item.Name == "AIS")
+                                {
+                                    <img src="~/img/@item.ImageCamp" alt="Italian Trulli" width="80%">
+                                }
+                                else 
+                                {
+                                    <img src="~/img/@item.ImageCamp" alt="Italian Trulli" width="70%">
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="numbers">
+                                    <p class="mb-0 text-xs">
+                                        ยอดค่าบริการเดือนที่ผ่านมา : <span class="text-primary text-xs font-weight-bolder">@item.SumServiceCamp</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-8 mb-lg-0 mb-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">จำนวนค่าใช้บริการปีปัจจุบัน [@ViewBag.NowYear]</h6>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart">
+                        <canvas id="myChartBar" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card z-index-2 h-100">
+                <div class="card-header pb-0 pt-3 bg-transparent">
+                    <h6 class="text-capitalize">จำนวนค่าใช้จ่ายในแต่ละบริการปีปัจุบัน [@ViewBag.NowYear]</h6>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart">
+                        <canvas id="myChartArea" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+                <div class="copyright text-center text-xs text-muted text-lg-start">
+                    Copyright © 2020-2023 IT-DEPT. Pacific Fish Processing Co., Ltd. All rights reserved.
+                    made with <i class="fa fa-heart"></i>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChartBar');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'มีนาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+                datasets: [{
+                    label: 'หน่วยเงิน : บาท',
+                    data: [
+
+        @foreach (var item in serviceOfmonth.ListService)
+        {
+            @item.SumMonth
+            @Html.Raw(",")
+
+        }
+                                                                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const ctxpolarArea = document.getElementById('myChartArea');
+        new Chart(ctxpolarArea, {
+            type: 'polarArea',
+            data: {
+                labels: ['โปรโมชั่น', 'บริการส่วนเกิน', 'โทรระหว่างประเทศ', 'บริการเสริม'],
+                datasets: [{
+                    label: 'หน่วยเงิน : บาท',
+                    data: [
+        @foreach (var item in costsum.ListSumCost)
+        {
+            @item.SumCostPromotion
+            @Html.Raw(",")
+            @item.SumCostExcess
+            @Html.Raw(",")
+            @item.SumCostInterCalling
+            @Html.Raw(",")
+            @item.SumCostAdditinal
+
+        }],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

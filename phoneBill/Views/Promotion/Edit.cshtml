@@ -1,0 +1,156 @@
+﻿@model Promotion;
+@{
+    ViewData["Title"] = "EditPromotions";
+}
+@section Styles {
+    <!-- Select Option Search -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-selection--single {
+            border: 1px solid #d2d6da !important;
+            height: 40px !important;
+            border-radius: 0.5rem !important;
+        }
+
+        .select2-selection__arrow {
+            height: 38px !important;
+        }
+
+        .select2-selection__rendered {
+            line-height: 38px !important;
+        }
+    </style>
+}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6><i class="fa fa-pencil-square-o text-info text-sm opacity-10"></i>&nbsp;&nbsp;แก้ไขโปรโมชั่น</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-4">
+                        <form method="POST" asp-controller="Promotion" asp-action="Update" asp-route-id="">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Promotion1" for="Promotion1" class="form-label">โปรโมชั่น<font color="red">*</font></label>
+                                        <input asp-for="Promotion1" class="form-control" placeholder="กรอกข้อมูลโปรโมชั่น" required />
+                                        <span asp-validation-for="Promotion1" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label asp-for="Camp" for="Camp" class="form-label">เครือข่าย<font color="red">*</font></label>
+                                        <select asp-for="Camp" class="form-control" id="select-state" asp-items="ViewBag.ListCamp" style="width:100%;" required>
+                                            <option>เลือกข้อมูล</option>
+                                            <option>AIS</option>
+                                            <option>DTAC</option>
+                                            <option>TRUE</option>
+                                        </select>
+                                        <span asp-validation-for="Camp" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label asp-for="DeleteStatus" class="form-label">ปิด/เปิด</label>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" role="switch" width="100" height="150" @if (Model.DeleteStatus == 0)
+                                            {
+                                                @Html.Raw("checked");
+                                            }>
+                                            <label class="mt-2" asp-for="DeleteStatus">&nbsp;สถานะการใช้งาน </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* <div class="col-3">
+                                <div class="mb-3">
+                                <label asp-for="PStatus" for="PStatus" class="form-label">สถานะ<font color="red">*</font></label>
+                                <select asp-for="PStatus" class="form-control" id="select-state" asp-items="ViewBag.ListPStatus" style="width:100%;" required>
+                                <option>เลือกข้อมูล</option>
+                                <option>True</option>
+                                <option>False</option>
+                                </select>
+                                <span asp-validation-for="PStatus" class="text-danger"></span>
+                                </div>
+                                </div> *@
+                            </div>
+
+                            @* EDIT ID *@
+                            <input asp-for="ID" type="hidden" class="form-control" required />
+
+                            <!-- Button trigger modal -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <a style="float:left;" asp-controller="Promotion" asp-action="Index" class="btn btn-secondary">
+                                        <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;ยกเลิก
+                                    </a>
+                                    <button style="float:right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;แก้ไขข้อมูล
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                        </div>
+                                        <div class="modal-body" style="text-align: center;">
+                                            <i class="fa fa-exclamation-triangle text-info" aria-hidden="true"></i>&nbsp;คุณต้องการแก้ไขข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลิก</button>
+                                            <button type="submit" class="btn btn-info btn-sm">ยืนยัน</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- PupupBoostap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- DataTable -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <!-- Select Option Search -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+
+        //Select Option Search
+        $(document).ready(function () {
+            $('#select-state').select2();
+        });
+
+        //DataTable
+        new DataTable('#example');
+
+
+        $(function () {
+            $("#select-state").change(function () {
+                $.post("/Member/PostMethod",
+                    { ID: $(this).val() },
+                    function (response) {
+                        $("#txtCamp").val(response.camp)
+                    }
+                );
+            });
+        });
+    </script>
+
+}
+

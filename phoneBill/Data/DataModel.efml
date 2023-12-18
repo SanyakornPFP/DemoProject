@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="phoneBill.Data" namespace="phoneBill.Models" p1:name="db_phonebillModel" p1:Guid="a2924587-b38c-43e3-99bd-9445fbde2ec4" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="Member" entity-set="Members" table="Member" schema="dbo" p1:Guid="eaf71781-017a-424f-9536-deb261eea0fc">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="fa6efeda-5259-4ff3-b7cc-f616cf63d69a">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="Name" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="c38510da-0073-4250-ab05-1c77ed9ad52f">
+      <column name="Name" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Telephone" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="7fc3ae77-428c-4e5d-ab04-e52c1ab10301">
+      <column name="Telephone" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="EmpID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="8a756837-8a77-42c3-8292-26b3b55a6ab1">
+      <column name="Emp_ID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="PromotionID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="261c322b-dab2-46fd-9571-39df2fb089e1">
+      <column name="PromotionID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" value-generated="OnAdd" p1:ValidateRequired="false" p1:Guid="6e2adc88-e0de-4262-8979-e55d8e5d7ba9">
+      <column name="DeleteStatus" default="0" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="Month" entity-set="Months" table="Month" schema="dbo" p1:Guid="47e07f3d-1c2e-4ff2-b384-0dab0f08396a">
+    <id name="ID" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="247bd86c-0758-4f06-ad14-18571a2b3e6b">
+      <column name="ID" not-null="True" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </id>
+    <property name="Month1" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="a074f925-7ab1-477d-b3df-53b4ac3f773c">
+      <column name="Month" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Number" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="6bcb7388-8cde-4239-8358-a1da3fd017cf">
+      <column name="Number" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="Promotion" entity-set="Promotions" table="Promotion" schema="dbo" p1:Guid="2a4fe33d-19cc-478d-add0-dc20dfa63520">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="735d1269-1ce3-401f-8b2b-09a2f4068e04">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="Promotion1" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="0e9966bd-93a3-452a-84eb-5c6cb5ef04b6">
+      <Documentation>
+        <Summary>โปรดมชั่นค่าโทรศัพท์</Summary>
+      </Documentation>
+      <column name="Promotion" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Camp" type="String" p1:nullable="True" p1:ValidateMaxLength="100" p1:ValidateRequired="false" p1:Guid="231d6c45-a804-475f-9714-2ca44d8231bc">
+      <column name="Camp" not-null="False" length="100" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Int32" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="95360077-6f54-4cb2-913e-ea7c2de38cd2">
+      <column name="DeleteStatus" not-null="False" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="Userlog" entity-set="Userlogs" table="userlog" schema="dbo" p1:Guid="56aebdeb-2fca-4678-9bea-8e221fda1f45">
+    <id name="Username" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="e4f4bc61-e3a6-4bf5-a45a-d4395755279f">
+      <column name="username" not-null="True" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </id>
+    <property name="Pwd" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="773f9f40-bc5f-4329-b5a3-6c6304d33d8e">
+      <column name="pwd" not-null="True" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="VMonth" entity-set="VMonths" table="V_Month" schema="dbo" p1:Guid="d13dd816-2981-40d8-b952-f5675402ded4">
+    <id name="ID" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="7649dfc6-e161-4ff6-8ec3-7604373381d4">
+      <column name="ID" not-null="True" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </id>
+    <property name="Month" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="75e8843d-1f20-47b8-b09d-ad0bc2541870">
+      <column name="Month" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="VPromotion" entity-set="VPromotions" table="V_Promotion" schema="dbo" p1:Guid="6200be26-f594-4808-9103-d69321b246fe">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="f1a9eac9-bbff-45f4-b7b5-492885318942">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="Promotion" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="f167bbc9-3f56-46e3-9875-0b4577275137">
+      <column name="Promotion" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Camp" type="String" p1:nullable="True" p1:ValidateMaxLength="100" p1:ValidateRequired="false" p1:Guid="01953256-00f5-422d-bf03-98abfbf04f35">
+      <column name="Camp" not-null="False" length="100" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Int32" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="ba0db946-000b-4c26-95e2-74709e9b4c66">
+      <column name="DeleteStatus" not-null="False" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="VBilllist" entity-set="VBilllists" table="V_Billlist" schema="dbo" p1:Guid="75c7145e-66a9-48cc-b9c8-d66ba6808d6f">
+    <id name="IDAUTO" type="Int32" p1:ValidateRequired="true" p1:Guid="6269f088-6849-424a-9713-e8a0f3f0fee3">
+      <column name="IDAUTO" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="MemberID" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="e5dc1529-91f6-4875-8376-800a457522a5">
+      <column name="MemberID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="ID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="fce21834-03f9-4287-b778-5e84524a71ba">
+      <column name="ID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Dateonly" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="1d37b737-79d5-4efa-ab6a-53195cb785e2">
+      <column name="Dateonly" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Name" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="308de8f4-56a2-41b8-84e2-49b5db77aa0f">
+      <column name="Name" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="MonthBill" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="6620936e-cec9-4ad7-bf68-0385a11fc2b6">
+      <column name="MonthBill" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="YearBill" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="bcec6557-fcf6-4d55-80a3-6e95711e2646">
+      <column name="YearBill" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Phonenumber" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="f8c96cc8-fbd5-4da1-a6b5-8ae79ca966d8">
+      <column name="Phonenumber" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Timeonly" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="a157e056-3aa2-461e-9201-ccafa3de9160">
+      <column name="Timeonly" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="PromotionCost" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="dfb87ed8-e5e0-4061-aa6c-4655c7d72636">
+      <column name="PromotionCost" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="Notification" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="b07af9ee-2280-49d8-a2dc-610e24403fb9">
+      <column name="Notification" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="ExcessCost" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="7bac2ef9-6660-4d98-9bc9-91e5aaa60a42">
+      <column name="ExcessCost" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="InterCallingCharge" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="1fb07c13-e26c-4ea3-bb69-c294e23bd4bd">
+      <column name="InterCallingCharge" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="AdditionalServiceFee" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="30c6c4fb-4c2f-4d10-8afb-6f170c58afe4">
+      <column name="AdditionalServiceFee" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="VAT" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="74b4a122-d844-4a10-96df-32a3f602304d">
+      <column name="VAT" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="Promotion" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="e4064258-4645-4454-9a8e-3c71035bc669">
+      <column name="Promotion" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Camp" type="String" p1:nullable="True" p1:ValidateMaxLength="100" p1:ValidateRequired="false" p1:Guid="32413f88-ab72-4448-a59e-908bc5c92d0c">
+      <column name="Camp" not-null="False" length="100" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Month" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="253a3de8-1442-4dd7-a79d-bb018d54a4f2">
+      <column name="Month" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="89ef3aee-db3e-4c8a-93e2-168407a3aebd">
+      <column name="DeleteStatus" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+    <property name="MonthID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="b899d031-7dd1-414d-a74e-6bcb464edb07">
+      <column name="MonthID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="EmpID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="602870c2-469e-45ee-a90c-7d767c323bc5">
+      <column name="Emp_ID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="TotalService" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="9079d9de-aac9-47d8-ac3c-8e6305a0186c">
+      <column name="TotalService" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="User" entity-set="Users" table="`User`" schema="dbo" p1:Guid="0db37114-1f79-4306-9554-897d93192aac">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="b0f2be67-168c-437d-a534-9bbfc5b42a55">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="Username" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="d054746b-665e-431f-be00-ddda80f68998">
+      <column name="Username" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Password" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="3404dd28-d69d-4081-bf72-6595f26dda6f">
+      <column name="Password" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="VUserAuth" entity-set="VUserAuths" table="V_UserAuth" schema="dbo" p1:Guid="7821f192-bda5-4048-aaa6-e3fed10921eb">
+    <id name="ID" type="Int32" p1:ValidateRequired="true" p1:Guid="59c5d09d-7afd-4136-bd80-0ceeaa7500b0">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="EMPID" type="String" p1:nullable="True" p1:ValidateMaxLength="20" p1:ValidateRequired="false" p1:Guid="1e592e6f-a5ee-4624-9dcd-b686c1248e87">
+      <column name="EMP_ID" not-null="False" length="20" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="FIRSTNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="46a67cf0-6d53-4d3f-a82a-7e795f450038">
+      <column name="FIRSTNAME" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SURNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="05ff9284-93e4-419d-a09f-8420c6ec8518">
+      <column name="SURNAME" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="IDCARD" type="String" p1:nullable="True" p1:ValidateMaxLength="13" p1:ValidateRequired="false" p1:Guid="8d17dd91-e19d-41d3-9a57-0aef9e215b6e">
+      <column name="ID_CARD" not-null="False" length="13" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Fullname" type="String" p1:nullable="True" p1:ValidateMaxLength="102" p1:ValidateRequired="false" p1:Guid="af11bc1f-d3d0-4ad0-9c4e-4da43f2061d2">
+      <column name="Fullname" not-null="False" length="102" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Level" type="String" p1:nullable="True" p1:ValidateMaxLength="20" p1:ValidateRequired="false" p1:Guid="2f020bc0-3bf2-4fbe-aeeb-8dd79fbffb95">
+      <column name="Level" not-null="False" length="20" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="POSITION" type="String" p1:nullable="True" p1:ValidateMaxLength="1000" p1:ValidateRequired="false" p1:Guid="1b79a552-4e91-4b51-9c65-ed281e30d7f5">
+      <column name="POSITION" not-null="False" length="1000" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DEPNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="200" p1:ValidateRequired="false" p1:Guid="56989779-8f7d-4671-a292-1a1f06b01204">
+      <column name="DEP_NAME" not-null="False" length="200" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SecName" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="24d23f86-f1d5-405e-8cd2-7702a0816b9e">
+      <column name="sec_name" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Expr1" type="String" p1:nullable="True" p1:ValidateMaxLength="124" p1:ValidateRequired="false" p1:Guid="bc44bec4-3b49-4aab-902d-297e68cde24b">
+      <column name="Expr1" not-null="False" length="124" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="ENDDATE" type="DateTime" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="c5fff014-4446-4976-9454-30753ea20672">
+      <column name="END_DATE" not-null="False" sql-type="datetime" p1:unicode="False" />
+    </property>
+    <property name="DEPID" type="String" p1:nullable="True" p1:ValidateMaxLength="4" p1:ValidateRequired="false" p1:Guid="c9b36cd9-4ed4-4bd8-a171-555c452fc82a">
+      <column name="DEP_ID" not-null="False" length="4" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="NAMEENG" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="945fc21a-f490-413e-841a-60fdf66b709c">
+      <column name="NAME_ENG" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SURNAMEENG" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="9c305e5e-4818-490a-b8d4-b6a2818df665">
+      <column name="SURNAME_ENG" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Username" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="9924c4d7-a14d-48a4-a36e-a33e71a5b3c5">
+      <column name="Username" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Password" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="e4f83d3f-ad4a-4638-98e8-80e31aef2453">
+      <column name="Password" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="Bill" entity-set="Bills" table="Bill" schema="dbo" p1:Guid="01bb27e5-4f20-40c8-b28e-311d9666a27a">
+    <id name="IDAUTO" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="21598a2b-9b2a-4dd1-ad73-b955ee7cf480">
+      <column name="IDAUTO" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="ID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="2d63b5e9-ac5a-4b2a-8b2c-e3a630cca563">
+      <column name="ID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="MemberID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="0831470a-aaf5-494e-a313-1674b5c8ad4f">
+      <column name="MemberID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Dateonly" type="String" p1:nullable="True" value-generated="OnAdd" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="9326e9c2-9fec-4a0e-9cf9-0c89a824f26c">
+      <column name="Dateonly" default="[dbo].[dateOnly]()" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Timeonly" type="String" p1:nullable="True" value-generated="OnAdd" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="abbf4547-e93d-46b9-9e68-4c3d45a7f591">
+      <column name="Timeonly" default="[dbo].[timeOnly]()" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="MonthID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="f9b8e9cd-1034-4787-8204-82de9e4b7d21">
+      <column name="MonthID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="MonthBill" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="6d068353-1367-44f3-acdc-be63438daf84">
+      <column name="MonthBill" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="YearBill" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="61260dd7-159e-4d74-8ea1-c3a690dad459">
+      <column name="YearBill" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Phonenumber" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="56815c70-5746-4843-8e2d-256053629ced">
+      <column name="Phonenumber" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="PromotionCost" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="87ad766b-c342-419c-82bc-3b7e2c5fcf97">
+      <column name="PromotionCost" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="ExcessCost" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="38dfe300-3d2d-446c-9b77-035f1fe1cc3b">
+      <column name="ExcessCost" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="InterCallingCharge" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3dfe03c3-719d-4d8b-af6c-93dbf0a174dd">
+      <column name="InterCallingCharge" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="AdditionalServiceFee" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="806dba46-a4bc-49ba-ad32-c195209c5f45">
+      <column name="AdditionalServiceFee" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="VAT" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="155afcac-ac82-4952-bcd8-87f89ae6dba2">
+      <column name="VAT" not-null="False" precision="53" sql-type="float" p1:unicode="False" />
+    </property>
+    <property name="Notification" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="31f576ea-685e-411f-a173-0a86260ca590">
+      <column name="Notification" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" value-generated="OnAdd" p1:ValidateRequired="false" p1:Guid="c001d798-d33a-482d-9bb3-13be870de9fc">
+      <column name="DeleteStatus" default="0" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="VMember" entity-set="VMembers" table="V_Member" schema="dbo" p1:Guid="66647476-fbfc-441c-a564-31a5b5351e62">
+    <id name="ID" type="Int32" p1:ValidateRequired="true" p1:Guid="a6a05e43-ff85-4209-b806-78ee4f8460c8">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="EmpID" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="e28119b2-cea1-4c5e-a616-0d7620768b3d">
+      <column name="Emp_ID" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Name" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="6d51f256-4ebf-421c-b75e-31feb3d1475c">
+      <column name="Name" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Telephone" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="494fb872-f98a-44c3-b3d5-e0d9e5fb6e8a">
+      <column name="Telephone" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Promotion" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="90d43fc3-1cec-4a29-a2a3-120746a777c4">
+      <column name="Promotion" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="Camp" type="String" p1:nullable="True" p1:ValidateMaxLength="100" p1:ValidateRequired="false" p1:Guid="7bf997a0-c05b-4ed7-94d4-56ff0f108620">
+      <column name="Camp" not-null="False" length="100" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3aa5b37c-c269-4aa0-a2c8-2d221c42ca36">
+      <column name="DeleteStatus" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+  </class>
+  <method name="DateOnly" p1:procedure="dbo.dateOnly" p1:Guid="2a545e9a-5f74-416c-aa5a-19ab472f666a">
+    <return-scalar column="return_value" type="String" />
+  </method>
+  <method name="TimeOnly" p1:procedure="dbo.timeOnly" p1:Guid="5f022b52-6d44-4f95-b14f-a6a9bd180ed9">
+    <return-scalar column="return_value" type="String" />
+  </method>
+</efcore>

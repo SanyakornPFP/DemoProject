@@ -1,0 +1,240 @@
+﻿@model Member;
+@{
+    ViewData["Title"] = "MemberPage";
+}
+@section Styles {
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <!-- Select Option Search -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-selection--single {
+            border: 1px solid #d2d6da !important;
+            height: 40px !important;
+            border-radius: 0.5rem !important;
+        }
+
+        .select2-selection__arrow {
+            height: 38px !important;
+        }
+
+        .select2-selection__rendered {
+            line-height: 38px !important;
+        }
+    </style>
+}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6><i class="fa fa-user-plus text-success text-sm opacity-10"></i>&nbsp;&nbsp;เพิ่มรายชื่อผู้ใช้งาน</h6>
+
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-4">
+                        <form method="POST" asp-controller="Member" asp-action="Create">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Name" for="Name" class="form-label">ผู้ใช้งานเบอร์โทรศัพท์ <font color="red">*</font></label>
+                                        <input asp-for="Name" class="form-control" placeholder="กรอกข้อมูลชื่อ-นามสกุล" required />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label asp-for="Telephone" for="Telephone" class="form-label">เบอร์โทรศัพท์ <font color="red">*</font></label>
+                                        <input asp-for="Telephone" class="form-control" placeholder="กรอกเบอร์โทร 10 หลัก" maxlength="10" required />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label asp-for="EmpID" for="EmpID" class="form-label">รหัสพนักงานผู้รับผิดชอบ <font color="red">*</font></label>
+                                        <input asp-for="EmpID" tpye="text" class="form-control" placeholder="กรอกรหัส 5 หลัก" maxlength="5" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="mb-3">
+                                        <label asp-for="PromotionID" for="PromotionID" class="form-label">โปรโมชั่น <font color="red">*</font></label>
+                                        <select asp-for="PromotionID" class="form-control" id="select-state" asp-items="ViewBag.ListPromotion" style="width:100%;" required>
+                                            <option>เลือกข้อมูล</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">เครือข่าย</label>
+                                        <input id="txtCamp" tpye="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Button trigger modal -->
+                            <center>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;บันทึกข้อมูล
+                                </button>
+                            </center>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                        </div>
+                                        <div class="modal-body" style="text-align: center;">
+                                            <i class="fa fa-exclamation-triangle text-success" aria-hidden="true"></i>&nbsp;คุณต้องการบันทึกข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลืก</button>
+                                            <button type="submit" class="btn btn-success btn-sm">ยืนยัน</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6><i class="fa fa-address-card text-success text-sm opacity-10"></i>&nbsp;&nbsp;รายชื่อผู้ใช้งาน</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-4">
+                        <table id="example" class="display align-items-center justify-content-center mb-2" style="width: 100%; padding: 10px">
+                            <thead>
+                                <tr style="color:white;">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center" style="width: 5%;">
+                                        No.
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" style="width: 15%;">
+                                        ชื่อ-นามสกุล
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" style="width: 10%;">
+                                        เบอร์โทรศัพท์
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center " style="width: 8%;">
+                                        รหัสผู้รับผิดชอบ
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" style="width: 45%;">
+                                        โปรโมชั่น
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                        เครือข่าย
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">
+                                        แก้ไข
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">
+                                        ลบ
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tboady>
+                                @{
+                                    int Count = 0;
+                                }
+                                @foreach (var item in (List<VMember>)ViewBag.ListMember)
+                                {
+                                    Count++;
+                                    <tr>
+                                        <td class="text-s text-center">
+                                            @Count
+                                        </td>
+                                        <td class="text-s">
+                                            @item.Name
+                                        </td>
+                                        <td class="text-s">
+                                            @item.Telephone
+                                        </td>
+                                        <td class="text-s text-center">
+                                            @item.EmpID
+                                        </td>
+                                        <td class="text-s">
+                                            @item.Promotion
+                                        </td>
+                                        <td class="text-s text-center">
+                                            @item.Camp
+                                        </td>
+                                        <td class="text-s">
+                                            <a style="display: table-cell; text-align: center; vertical-align: middle;" asp-action="Edit" asp-controller="Member" asp-route-id="@item.ID" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        </td>
+                                        <td class="text-s">
+                                            <!-- Button trigger modal -->
+                                            <a style="display: table-cell; text-align: center; vertical-align: middle;" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Delete@(Count)">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="Delete@(Count)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTsitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align: center;">
+                                                            คุณต้องการข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันค่ะ
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลืก</button>
+                                                            <a class="btn btn-sm btn-danger delete" asp-action="Delete" asp-controller="Member" asp-route-id="@item.ID">
+                                                                ยืนยัน
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tboady>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- PupupBoostap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- DataTable -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- Select Option Search -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+
+        //Select Option Search
+        $(document).ready(function () {
+            $('#select-state').select2();
+        });
+
+        //DataTable
+        new DataTable('#example');
+
+
+        $(function () {
+            $("#select-state").change(function () {
+                $.post("/Member/CampResult",
+                    { ID: $(this).val() },
+                    function (response) {
+                        $("#txtCamp").val(response.camp)
+                    }
+                );
+            });
+        });
+    </script>
+
+}

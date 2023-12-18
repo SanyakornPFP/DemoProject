@@ -1,0 +1,110 @@
+﻿@model ReportRequest
+@{
+    ViewData["Title"] = "ReportPage";
+}
+@section Styles {
+
+    <!-- Select Option Search -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <style>
+        .select2-selection--single {
+            border: 1px solid #d2d6da !important;
+            height: 40px !important;
+            border-radius: 0.5rem !important;
+        }
+
+        .select2-selection__arrow {
+            height: 38px !important;
+        }
+
+        .select2-selection__rendered {
+            line-height: 38px !important;
+            font-size: 14px;
+        }
+
+    </style>
+}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6><i class="ni ni-collection text-danger text-sm opacity-10"></i>&nbsp;&nbsp; รายงานประจำปี</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-4">
+                        <form method="POST" asp-controller="Report" asp-action="PrintReport">
+                            @if (TempData["DataNull"] != null)
+                            {
+                                <div class="row">
+                                    <div class="alert alert-warning alert-dismissible fade show text-white text-center" id="alertDiv" role="alert">
+                                        <span class="alert-icon"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>
+                                        <span class="alert-text">@TempData["DataNull"]</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true" class="text-white"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                TempData.Remove("DataNull");
+                            }
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label asp-for="Phonenumber" for="PromotionID" class="form-label">เบอร์โทรศัพท์<font color="red">*</font></label>
+                                        <select asp-for="Phonenumber" class="form-control" id="select-state" asp-items="ViewBag.ListTelephone" style="width:100%;" required>
+                                            <option value="all">เลือกทั้งหมด</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">เดือน<font color="red">*</font></label>
+                                        <select asp-for="MonthBill" asp-items="ViewBag.ListMonth" class="form-control" style="width:100%;" required>
+                                            <option value="all">เลือกทั้งหมด</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">ประจำปี<font color="red">*</font></label>
+                                        <select asp-for="YearBill" asp-items="ViewBag.ListYear" class="form-control" style="width:100%;" required>
+                                            <option value="">เลือก</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="mb-3">
+                                        <label asp-for="TypeReport" for="PromotionID" class="form-label">ประเภทรายงาน<font color="red">*</font></label>
+                                        <select asp-for="TypeReport" class="form-control" id="select-state" style="width:100%;" required>
+                                            <option value="PDF">PDF</option>
+                                            <option value="EXCEL">EXCEL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label asp-for="TypeReport" for="PromotionID" class="form-label text-center">พิมพ์เอกสารรายงาน</label>
+                                        <button class="form-control btn btn-success" type="submit">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label asp-for="TypeReport" for="PromotionID" class="form-label text-center"><font color="red">หมายเหตุ : หากเกิดปัญหาการใช้งานติดต่อ 107, 108</font></label>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <!-- Select Option Search -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+
+}
