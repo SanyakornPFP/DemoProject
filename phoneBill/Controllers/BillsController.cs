@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
 using phoneBill.Data;
@@ -6,6 +7,7 @@ using phoneBill.Models;
 
 namespace phoneBill.Controllers
 {
+    [Authorize]
     public class BillsController : Controller
     {
         private readonly db_phonebillModel _db;
@@ -35,6 +37,7 @@ namespace phoneBill.Controllers
 
             _db.Bills.Add(obj);
             _db.SaveChanges();
+            TempData["Success"] = "เพิ่มบิลค่าบริการโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction("Index");
 
         }
@@ -46,8 +49,6 @@ namespace phoneBill.Controllers
             List<VMember> List = _db.VMembers.Where(status => status.DeleteStatus != true).ToList();
             ViewBag.ListTelephone = new SelectList(List, "Telephone", "Telephone");
 
-            
-
             if (ID == null || ID == 0)
             {
                 return NotFound();
@@ -56,8 +57,8 @@ namespace phoneBill.Controllers
             var obj = _db.Bills.Find(ID);
 
             //Select Option Mouth
-            List<VMonth> Mount = _db.VMonths.ToList();
-            ViewBag.ListMonth = new SelectList(Mount, "ID", "Month", obj.MonthID);
+            List<VMonthlist> Mount = _db.VMonthlists.ToList();
+            ViewBag.ListMonth = new SelectList(Mount, "MonthID", "MonthName", obj.MonthID);
 
             if (obj == null)
             {
@@ -84,10 +85,9 @@ namespace phoneBill.Controllers
             data.DeleteStatus = true;
             _db.Bills.Update(data);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "ลบบิลค่าบริการโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
         }
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,6 +95,7 @@ namespace phoneBill.Controllers
         {
             _db.Bills.Update(obj);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "แก้ไขบิลค่าบริการโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
 
         }
@@ -102,7 +103,7 @@ namespace phoneBill.Controllers
         public IActionResult DataSeleteOp()
         {
             //Data Bill
-            List<VBilllist> Data = _db.VBilllists.Where(delete => delete.DeleteStatus != true).OrderByDescending(s => s.ID).ToList();
+            List<VBilllist> Data = _db.VBilllists.Where(delete => delete.DeleteStatus != true).OrderByDescending(s => s.IDAUTO).ToList();
             ViewBag.ListBill = Data;
 
             //Select Option ListTelephone-Customer
@@ -110,8 +111,8 @@ namespace phoneBill.Controllers
             ViewBag.ListTelephone = new SelectList(List, "Telephone", "Telephone");
 
             //Select Option Mouth
-            List<VMonth> Mount = _db.VMonths.ToList();
-            ViewBag.ListMonth = new SelectList(Mount, "ID", "Month");
+            List<VMonthlist> Mount = _db.VMonthlists.ToList();
+            ViewBag.ListMonth = new SelectList(Mount, "MonthID", "MonthName");
 
             return View();
         }

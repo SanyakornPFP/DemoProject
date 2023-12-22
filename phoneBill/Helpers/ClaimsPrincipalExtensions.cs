@@ -36,6 +36,14 @@ namespace phoneBill.Helpers
             }
         }
 
+        public static string GetLoggedInEmpID(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+
+            return principal.FindFirst("EmpID").Value.ToString();
+        }
+
         public static string GetLoggedInUserName(this ClaimsPrincipal principal)
         {
             if (principal == null)
@@ -57,6 +65,13 @@ namespace phoneBill.Helpers
                 throw new ArgumentNullException(nameof(principal));
 
             return principal.FindFirst("Position").Value.ToString();
+        }
+        public static string GetLoggedInImgProfile(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+
+            return principal.FindFirst("ImgProfile").Value.ToString();
         }
         public static string GetLoggedInUserAvatar(this ClaimsPrincipal principal)
         {

@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - PFP Pacific PhoneBills</title>
     <link rel="apple-touch-icon" sizes="76x76" href="~/img/PhoneBills.png" />
     <link rel="icon" type="image/png" href="~/img/PhoneBills.png" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />sdaasdasdasdsas
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/phoneBill.styles.css" asp-append-version="true" />
 
@@ -28,7 +28,7 @@
     <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-            <a  class="navbar-brand m-0" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand m-0" asp-controller="Home" asp-action="Index">
                 <img src="~/img/PhoneBills.png" alt="main_logo" width="70" height="120">
                 <!-- <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo"> -->
                 <span class="ms-1 font-weight-bold"><b>PHONEBILLS</b></span>
@@ -77,6 +77,28 @@
                         <span class="nav-link-text ms-1">รายงานประจำปี</span>
                     </a>
                 </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">ตั้งค่าผู้ใช้งาน</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " asp-area="" asp-controller="User" asp-action="Index">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-user text-dark text-sm opacity-10" aria-hidden="true"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">ข้อมูลส่วนตัว</span>
+                    </a>
+                </li>
+                @if (User.GetLoggedInPosition() == "เจ้าหน้าที่ Data Develop")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="User" asp-action="Adminstrator">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-cog text-dark text-sm opacity-10" aria-hidden="true"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Adminstrator System</span>
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     </aside>
@@ -88,7 +110,7 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                         <li class="breadcrumb-item text-sm text-white active" aria-current="page">PFP - E Service</li>
-                    </ol>asdasdasdasd
+                    </ol>
                     <h6 class="font-weight-bolder text-white mb-0">@ViewData["Title"]</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -100,14 +122,30 @@
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
+                            <div class="avatar avatar-ls">
+                                @if (User.GetLoggedInImgProfile() != "Default.png")
+                                {
+                                    <img src="~/img/Profile/@User.GetLoggedInImgProfile() " alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                }
+                                else
+                                {
+                                    <img src="~/img/Profile/Default.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item px-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none text-white">
+                                <div class="name ps-3">
                                     @if (User.Identity!.IsAuthenticated)
                                     {
-                                        @User.GetLoggedInUserName()
+                                        <span>
+                                            @User.GetLoggedInUserName()
+                                        </span>
+                                        <div class="stats">
+                                            <small>@User.GetLoggedInPosition()</small>
+                                        </div>
                                     }
-                                </span>
+                                </div>
                             </a>
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">
@@ -119,6 +157,7 @@
                 </div>
             </div>
         </nav>
+
         <!-- End Navbar -->
         @RenderBody()
 
@@ -133,8 +172,16 @@
     <script src="~/js/core/bootstrap.min.js"></script>
     <script src="~/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="~/js/plugins/smooth-scrollbar.min.js"></script>
-   
+
     <script>
+
+        $("form").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                $("#btnSearch").attr('value');
+                //add more buttons here
+                return false;
+            }
+        });
 
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

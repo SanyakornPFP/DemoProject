@@ -9,7 +9,6 @@
         <File Name="Month.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="Promotion.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="Userlog.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
-        <File Name="VBill.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="VMonth.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="VPromotion.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="VBilllist.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
@@ -17,6 +16,7 @@
         <File Name="VUserAuth.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="Bill.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
         <File Name="VMember.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
+        <File Name="VEmplist.cs" DestinationFolder="D:\Project\phoneBill\phoneBill\Models" />
       </GeneratedFiles>
     </Generation>
     <DatabaseFirstNamingRules>
@@ -146,6 +146,20 @@
       <Exclude Name="Emp_ID" Table="dbo.V_Billlist" Type="Column" />
       <Exclude Name="TotalService" Table="dbo.V_Billlist" Type="Column" />
       <Exclude Name="IDAUTO" Table="dbo.V_Billlist" Type="Column" />
+      <Exclude Name="EMP_ID" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="FIRSTNAME" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="SURNAME" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="ID_CARD" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="Fullname" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="Level" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="POSITION" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="DEP_NAME" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="sec_name" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="Expr1" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="END_DATE" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="DEP_ID" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="NAME_ENG" Table="dbo.V_Emplist" Type="Column" />
+      <Exclude Name="SURNAME_ENG" Table="dbo.V_Emplist" Type="Column" />
       <Exclude Name="ID" Table="dbo.V_Member" Type="Column" />
       <Exclude Name="Name" Table="dbo.V_Member" Type="Column" />
       <Exclude Name="Telephone" Table="dbo.V_Member" Type="Column" />
@@ -155,24 +169,12 @@
       <Exclude Name="DeleteStatus" Table="dbo.V_Member" Type="Column" />
       <Exclude Name="ID" Table="dbo.V_Month" Type="Column" />
       <Exclude Name="Month" Table="dbo.V_Month" Type="Column" />
-      <Exclude Name="EMP_ID" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="FIRSTNAME" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="SURNAME" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="ID_CARD" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="Fullname" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="Level" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="POSITION" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="DEP_NAME" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="sec_name" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="Expr1" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="END_DATE" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="DEP_ID" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="NAME_ENG" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="SURNAME_ENG" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="Username" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="ID" Table="dbo.V_UserAuth" Type="Column" />
-      <Exclude Name="Password" Table="dbo.V_UserAuth" Type="Column" />
+      <Exclude Name="ID" Table="dbo.V_Promotion" Type="Column" />
+      <Exclude Name="Promotion" Table="dbo.V_Promotion" Type="Column" />
+      <Exclude Name="Camp" Table="dbo.V_Promotion" Type="Column" />
+      <Exclude Name="DeleteStatus" Table="dbo.V_Promotion" Type="Column" />
       <Exclude Name="PK_V_Billlist" Table="dbo.V_Billlist" Type="Constraint" />
+      <Exclude Name="PK_V_Emplist" Table="dbo.V_Emplist" Type="Constraint" />
       <Exclude Name="PK_V_Member" Table="dbo.V_Member" Type="Constraint" />
       <Exclude Name="PK_V_Month" Table="dbo.V_Month" Type="Constraint" />
       <Exclude Name="PK_V_Promotion" Table="dbo.V_Promotion" Type="Constraint" />

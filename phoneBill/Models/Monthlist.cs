@@ -18,20 +18,18 @@ using System.Linq.Expressions;
 
 namespace phoneBill.Models
 {
-    public partial class VPromotion {
+    public partial class Monthlist {
 
-        public VPromotion()
+        public Monthlist()
         {
             OnCreated();
         }
 
         public virtual int ID { get; set; }
 
-        public virtual string Promotion { get; set; }
+        public virtual string MonthID { get; set; }
 
-        public virtual string Camp { get; set; }
-
-        public virtual int? DeleteStatus { get; set; }
+        public virtual string MonthName { get; set; }
 
         #region Extensibility Method Definitions
 

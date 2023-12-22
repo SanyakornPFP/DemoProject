@@ -50,24 +50,22 @@
                         <div class="card-body">
                             @if (TempData["Danger"] != null)
                             {
-                                <div class="alert alert-danger alert-dismissible text-white">
+                                <div class="alert alert-danger alert-dismissible text-white text-xs">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></strong> @TempData["Danger"]
+                                    <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></strong> @TempData["Danger"] หรือติดต่อ 188 [บอส]
                                 </div>
+
+                                TempData.Remove("Danger");
                             }
                             <form method="POST" asp-controller="Authen" asp-action="Login">
                                 <div>
                                     <div class="mb-3">
-                                        <input asp-for="Username" class="form-control" type="text" maxlength="5" placeholder="ชื่อผู้ใช้งาน" aria-label="Username" required>
+                                        <input asp-for="Username" class="form-control" type="text" maxlength="5" placeholder="ชื่อผู้ใช้งาน" aria-label="Username">
                                         <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input asp-for="Password" class="form-control" type="password" maxlength="13" placeholder="รหัสผ่าน" Password" TextMode="Password" aria-label="Password" required>
+                                        <input asp-for="Password" class="form-control" type="password" maxlength="13" placeholder="รหัสผ่าน" Password" TextMode="Password" aria-label="Password">
                                         <span asp-validation-for="Password" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" asp-for="RememberMe" type="checkbox">
-                                        <label asp-for="RememberMe" class="form-check-label" for="rememberMe">@Html.DisplayNameFor(model => model.RememberMe)</label>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">เข้าสู่ระบบ</button>

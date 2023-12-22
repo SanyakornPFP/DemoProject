@@ -19,7 +19,7 @@
         /// <summary>
         /// เดือน
         /// </summary>
-        public string MonthBill { get; set; }
+        public string MonthName { get; set; }
         /// <summary>
         /// ปี
         /// </summary>

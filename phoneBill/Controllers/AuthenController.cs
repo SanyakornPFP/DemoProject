@@ -39,7 +39,7 @@ namespace phoneBill.Controllers
                 Response.Cookies.Append(
                     CookieRequestCultureProvider.DefaultCookieName,
                     CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("th-TH")),
-                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) }
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(30) }
                     );
 
                 return RedirectToAction(nameof(Index), "Home");
@@ -56,11 +56,14 @@ namespace phoneBill.Controllers
                 var data = _db.VUserAuths.Where(s => s.Username == model.Username && s.Password == model.Password).FirstOrDefault();
                 switch (data)
                 {
-                    case null :
+                    case null:
                         TempData["Danger"] = "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง";
                         break;
                     default:
-                        await SetCookie(model,data);
+                        var LoginDate = _db.Users.Where(s=> s.Username == model.Username).FirstOrDefault();
+                        LoginDate.DateLogin = DateTime.Now.ToString();
+                        _db.SaveChanges();
+                        await SetCookie(model, data);
                         return RedirectToAction(nameof(Index), "Home");
                 }
             }
@@ -90,7 +93,11 @@ namespace phoneBill.Controllers
             var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-                        new Claim(ClaimTypes.Name, data.Fullname)
+                        new Claim(ClaimTypes.Name, data.Fullname),
+                        new Claim("Position", data.POSITION),
+                        new Claim("ImgProfile", data.ImgProfile),
+                        new Claim("EmpID", data.EMPID)
+
                     };
 
 

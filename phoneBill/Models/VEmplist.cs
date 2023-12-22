@@ -18,20 +18,40 @@ using System.Linq.Expressions;
 
 namespace phoneBill.Models
 {
-    public partial class VPromotion {
+    public partial class VEmplist {
 
-        public VPromotion()
+        public VEmplist()
         {
             OnCreated();
         }
 
-        public virtual int ID { get; set; }
+        public virtual string EMPID { get; set; }
 
-        public virtual string Promotion { get; set; }
+        public virtual string FIRSTNAME { get; set; }
 
-        public virtual string Camp { get; set; }
+        public virtual string SURNAME { get; set; }
 
-        public virtual int? DeleteStatus { get; set; }
+        public virtual string IDCARD { get; set; }
+
+        public virtual string Fullname { get; set; }
+
+        public virtual string Level { get; set; }
+
+        public virtual string POSITION { get; set; }
+
+        public virtual string DEPNAME { get; set; }
+
+        public virtual string SecName { get; set; }
+
+        public virtual string Expr1 { get; set; }
+
+        public virtual DateTime? ENDDATE { get; set; }
+
+        public virtual string DEPID { get; set; }
+
+        public virtual string NAMEENG { get; set; }
+
+        public virtual string SURNAMEENG { get; set; }
 
         #region Extensibility Method Definitions
 

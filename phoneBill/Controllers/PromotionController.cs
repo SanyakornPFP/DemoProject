@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using phoneBill.Data;
 using phoneBill.Models;
 
 namespace phoneBill.Controllers
 {
+    [Authorize]
     public class PromotionController : Controller
     {
 
@@ -16,7 +18,7 @@ namespace phoneBill.Controllers
         public IActionResult Index()
         {
 
-            List<VPromotion> List = _db.VPromotions.ToList();
+            List<VPromotion> List = _db.VPromotions.OrderByDescending(s => s.ID).ToList();
             ViewBag.ListPromotion = List;
             //var model = new Promotion();
             //model.PStatus = false;
@@ -57,6 +59,7 @@ namespace phoneBill.Controllers
             //data.PStatus = false;
             _db.Promotions.Add(obj); //เพิ่มข้อมูล obj เข้าตาราง Promotions
             _db.SaveChanges(); // บันทึกข้อมูล
+            TempData["Success"] = "เพิ่มโปรโมชั่นเรียบร้อยแล้วครับ";
             return RedirectToAction("Index"); //กลับไปหน้า index
 
 
@@ -70,6 +73,7 @@ namespace phoneBill.Controllers
         {
             _db.Promotions.Update(obj);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "แก้ไขโปรโมชั่นเรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
         }
 
@@ -81,6 +85,7 @@ namespace phoneBill.Controllers
             data!.DeleteStatus = 1;
             _db.Promotions.Update(data);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "ลบโปรโมชั่นเรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
         }
 

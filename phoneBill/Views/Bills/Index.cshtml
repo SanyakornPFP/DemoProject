@@ -30,8 +30,24 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <h6><i class="fa fa-mobile text-info" aria-hidden="true"></i>&nbsp;&nbsp;เพิ่มบันทึกค่าโทรศัพท์รายบุลคล</h6>
-
                 </div>
+                @if (TempData["Success"] != null)
+                {
+                    <div class="row">
+                        <div class="col" style="padding-left: 50px; padding-right: 50px">
+                            <div class="alert alert-success alert-dismissible fade show text-white text-center" id="alertDiv" role="alert">
+                                <span class="alert-icon">
+                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                </span>
+                                <span class="alert-text">@TempData["Success"]</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true" class="text-white"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    TempData.Remove("Success");
+                }
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-4">
                         <form method="POST" asp-controller="Bills" asp-action="Create">
@@ -68,20 +84,19 @@
                                     <div class="mb-3">
                                         <label asp-for="MonthID" for="PromotionID" class="form-label">ประจำเดือน <font color="red">*</font></label>
                                         <select asp-for="MonthID" class="form-control" id="select-state" asp-items="ViewBag.ListMonth" style="width:100%;" required>
-                                            <option>เลือก</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="mb-3">
                                         <label asp-for="YearBill" for="exampleInputPassword1" class="form-label">ประจำปี ค.ศ  <font color="red"> *</font></label>
-                                        <input asp-for="YearBill" type="text" maxlength="4" class="form-control" />
+                                        <input asp-for="YearBill" type="text" maxlength="4" class="form-control" value="@DateTime.Now.ToString("yyyy")" required />
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="mb-3">
                                         <label asp-for="PromotionCost" for="exampleInputPassword1" class="form-label">ค่าบริการตามโปรโมชั่น  <font color="red">*</font></label>
-                                        <input asp-for="PromotionCost" id="PromotionCost" type="number" class="parameter form-control" />
+                                        <input asp-for="PromotionCost" id="PromotionCost" type="number" class="parameter form-control" required />
                                     </div>
                                 </div>
                                 <div class="col-2">
@@ -113,13 +128,17 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">หมายเหตุ </label>
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="Notification" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
 
                             @* input hidden *@
-                            <input asp-for="ID" id="txtID" type="hidden" />
+                            @{
+                                string IDbill = "B" + DateTime.Now.ToString("yyyymmss");
+                            }
+                            <input asp-for="ID" type="hidden" value="@IDbill" />
+                            <input asp-for="MemberID" id="txtMemberID" type="hidden" />
                             <input asp-for="Dateonly" type="hidden" value="@DateTime.Now.ToString("yyyyMMdd")" />
                             <input asp-for="Timeonly" type="hidden" value="@DateTime.Now.ToString("HH:mm:ss")" />
                             <input asp-for="VAT" type="hidden" class="total" />
@@ -135,10 +154,10 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;แจ้งเตือนจากระบบ</h5>
                                         </div>
                                         <div class="modal-body" style="text-align: center;">
-                                            คุณต้องการบันทึกข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันค่ะ
+                                            คุณต้องการบันทึกข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลืก</button>
@@ -173,6 +192,9 @@
                                     </th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                         ชื่อผู้ใช้งาน
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                        เดือน/ปี
                                     </th>
                                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">
                                         ค่าบริการตามโปรโมชั่น
@@ -217,23 +239,26 @@
                                         <td class="text-s">
                                             @item.Name
                                         </td>
-                                        <td class="text-s" style="text-align:right;" >
-                                            @item.PromotionCost
+                                        <td class="text-s">
+                                            @item.MonthName / @item.YearBill
                                         </td>
                                         <td class="text-s" style="text-align:right;">
-                                            @item.ExcessCost
+                                            @item.PromotionCost?.ToString("N2")
                                         </td>
                                         <td class="text-s" style="text-align:right;">
-                                            @item.InterCallingCharge
+                                            @item.ExcessCost?.ToString("N2")
                                         </td>
                                         <td class="text-s" style="text-align:right;">
-                                            @item.AdditionalServiceFee
+                                            @item.InterCallingCharge?.ToString("N2")
                                         </td>
                                         <td class="text-s" style="text-align:right;">
-                                            @item.VAT?.ToString("0.00")
+                                            @item.AdditionalServiceFee?.ToString("N2")
                                         </td>
                                         <td class="text-s" style="text-align:right;">
-                                            @item.TotalService?.ToString("0.00")
+                                            @item.VAT?.ToString("N2")
+                                        </td>
+                                        <td class="text-s" style="text-align:right;">
+                                            @item.TotalService?.ToString("N2")
                                         </td>
                                         <td class="text-s">
                                             <a style="display: table-cell; text-align: center; vertical-align: middle;" asp-action="Edit" asp-controller="Bills" asp-route-id="@item.IDAUTO" class="btn btn-sm btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -248,10 +273,10 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;แจ้งเตือนจากระบบ</h5>
                                                         </div>
                                                         <div class="modal-body" style="text-align: center;">
-                                                            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>&nbsp;&nbsp; คุณต้องการข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
+                                                            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>&nbsp;&nbsp; คุณต้องการลบข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลืก</button>
@@ -301,7 +326,8 @@
                 $.post("/Bills/CustomerDetailResult",
                     { Telephone: $(this).val() },
                     function (response) {
-                        $("#txtFullname").val(response.fullname)
+                        $("#txtMemberID").val(response.id)
+                        $("#txtFullname").val(response.name)
                         $("#txtPromotion").val(response.promotion)
                         $("#txtCamp").val(response.camp)
                         $("#txtID").val(response.id)

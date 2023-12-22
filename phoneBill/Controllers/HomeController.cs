@@ -95,6 +95,7 @@ namespace phoneBill.Controllers
         public IActionResult SumServiceMonthNowYear(String Year)
         {
             String[] MonID = new String[] { "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12" };
+            //String[] MonName = new String[] { "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" };
             var SumServiceMonth = new DashboardResponse();
             SumServiceMonth.ListService = new List<ServiceMonthReponse>();
 

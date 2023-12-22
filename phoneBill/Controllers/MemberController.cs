@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using phoneBill.Data;
@@ -12,7 +13,7 @@ using System.Security.Cryptography;
 
 namespace phoneBill.Controllers
 {
-
+    [Authorize]
     public class MemberController : Controller
     {
         private readonly db_phonebillModel _db;
@@ -25,7 +26,7 @@ namespace phoneBill.Controllers
         public IActionResult Index()
         {
             //Data Member 
-            List<VMember> Data = _db.VMembers.Where(s => s.DeleteStatus != true).ToList();
+            List<VMember> Data = _db.VMembers.Where(s => s.DeleteStatus != true).OrderByDescending(s => s.ID).ToList();
             ViewBag.ListMember = Data;
 
             //Select Option Protion
@@ -78,6 +79,7 @@ namespace phoneBill.Controllers
 
             _db.Members.Add(obj);
             _db.SaveChanges();
+            TempData["Success"] = "เพิ่มผู้ใช้งานโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction("Index");
         }
 
@@ -89,6 +91,7 @@ namespace phoneBill.Controllers
             data!.DeleteStatus = true;
             _db.Members.Update(data);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "ลบผู้ใช้งานโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
         }
 
@@ -98,6 +101,7 @@ namespace phoneBill.Controllers
         {
             _db.Members.Update(obj);
             Boolean result = _db.SaveChanges() > 0;
+            TempData["Success"] = "แก้ไขผู้ใช้งานโทรศัพท์เรียบร้อยแล้วครับ";
             return RedirectToAction(nameof(Index));
         }
 

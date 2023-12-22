@@ -18,11 +18,11 @@
                                 @foreach (var item in member.ListCountMember)
                                 {
                                     <h5 class="font-weight-bolder">
-                                        @item.CountMember
+                                        @item.CountMember.ToString("N0")
                                     </h5>
                                     <p class="mb-0 text-xs">
                                         ยกเลิกการใช้งาน :
-                                        <span class="text-danger text-xs font-weight-bolder">@item.CountMemberD</span>
+                                        <span class="text-danger text-xs font-weight-bolder">@item.CountMemberD.ToString("N0")</span>
                                     </p>
                                 }
                             </div>
@@ -66,7 +66,7 @@
                             <div class="col">
                                 <div class="numbers">
                                     <p class="mb-0 text-xs">
-                                        ยอดค่าบริการเดือนที่ผ่านมา : <span class="text-primary text-xs font-weight-bolder">@item.SumServiceCamp</span>
+                                        ยอดค่าบริการเดือนที่ผ่านมา : <span class="text-primary text-xs font-weight-bolder">@item.SumServiceCamp.ToString("N0")</span>
                                     </p>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'มีนาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+                labels: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
                 datasets: [{
                     label: 'หน่วยเงิน : บาท',
                     data: [

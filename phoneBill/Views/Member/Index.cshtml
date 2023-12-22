@@ -29,8 +29,24 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <h6><i class="fa fa-user-plus text-success text-sm opacity-10"></i>&nbsp;&nbsp;เพิ่มรายชื่อผู้ใช้งาน</h6>
-
                 </div>
+                @if (TempData["Success"] != null)
+                {
+                    <div class="row">
+                        <div class="col" style="padding-left: 50px; padding-right: 50px;">
+                            <div class="alert alert-success alert-dismissible fade show text-white text-center" id="alertDiv" role="alert">
+                                <span class="alert-icon">
+                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                </span>
+                                <span class="alert-text">@TempData["Success"]</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true" class="text-white"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    TempData.Remove("Success");
+                }
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-4">
                         <form method="POST" asp-controller="Member" asp-action="Create">
@@ -82,7 +98,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;แจ้งเตือนจากระบบ</h5>
                                         </div>
                                         <div class="modal-body" style="text-align: center;">
                                             <i class="fa fa-exclamation-triangle text-success" aria-hidden="true"></i>&nbsp;คุณต้องการบันทึกข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
@@ -177,10 +193,10 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;System</h5>
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;แจ้งเตือนจากระบบ</h5>
                                                         </div>
                                                         <div class="modal-body" style="text-align: center;">
-                                                            คุณต้องการข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันค่ะ
+                                                            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>&nbsp;&nbsp; คุณต้องการลบข้อมูลใช่หรือไม่ โปรดกดปุ่มยืนยันครับ
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">ยกเลืก</button>

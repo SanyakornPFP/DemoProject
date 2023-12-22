@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace phoneBill.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
         private readonly db_phonebillModel _db;
@@ -39,24 +41,24 @@ namespace phoneBill.Controllers
 
             if (models.Phonenumber == "all")
             {
-                if (models.MonthBill == "all")
+                if (models.MonthID == "all")
                 {
                     ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true).ToList();
                 }
                 else
                 {
-                    ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true && s.MonthBill == models.MonthBill).ToList();
+                    ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true && s.MonthID == models.MonthID).ToList();
                 }
             }
             else if (models.Phonenumber != "all")
             {
-                if (models.MonthBill == "all")
+                if (models.MonthID == "all")
                 {
                     ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true && s.Phonenumber == models.Phonenumber).ToList();
                 }
                 else
                 {
-                    ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true && s.Phonenumber == models.Phonenumber && s.MonthBill == models.MonthBill).ToList();
+                    ListDataBill = _db.VBilllists.Where(s => s.YearBill == models.YearBill && s.DeleteStatus != true && s.Phonenumber == models.Phonenumber && s.MonthID == models.MonthID).ToList();
                 }
             }
 
@@ -67,14 +69,14 @@ namespace phoneBill.Controllers
                 {
                     Phonenumber = item.Phonenumber,
                     Name = item.Name,
-                    MonthBill = item.MonthBill,
+                    MonthName = item.MonthName,
                     YearBill = item.Dateonly,
                     PromotionCost = (double)item.PromotionCost,
                     ExcessCost = (double)item.ExcessCost,
                     InterCallingCharge = (double)item.InterCallingCharge,
                     AdditionalServiceFee = (double)item.AdditionalServiceFee,
                     TotalService = (double)item.TotalService,
-                    VAT = (double)item.VAT,
+                    VAT = (double) item.VAT,
 
                 });
             }
@@ -102,7 +104,7 @@ namespace phoneBill.Controllers
                 }
                 else //GenerateExcel
                 {
-                    var fileName = "RB"+ DateTime.Now.ToString("ddMMyyyyhhmmss") + ".xlsx";
+                    var fileName = "RB" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".xlsx";
                     DataTable dataTable = new DataTable("Bill");
                     dataTable.Columns.AddRange(new DataColumn[9] {
                                         new DataColumn("Phonenumber"),
@@ -122,13 +124,13 @@ namespace phoneBill.Controllers
                         dataTable.Rows.Add(
                             item.Phonenumber,
                             item.Name,
-                            item.MonthBill,
+                            item.MonthName,
                             item.PromotionCost,
                             item.ExcessCost,
                             item.InterCallingCharge,
                             item.AdditionalServiceFee,
                             item.TotalService,
-                            item.VAT
+                            item.VAT.ToString("N2")
                             );
                     }
 
@@ -158,7 +160,7 @@ namespace phoneBill.Controllers
             var data = new DataTable();
             data.Columns.Add("Phonenumber");
             data.Columns.Add("Name");
-            data.Columns.Add("MonthBill");
+            data.Columns.Add("MonthName");
             data.Columns.Add("PromotionCost");
             data.Columns.Add("YearBill");
             data.Columns.Add("ExcessCost");
@@ -172,14 +174,14 @@ namespace phoneBill.Controllers
                 row = data.NewRow();
                 row["Phonenumber"] = item.Phonenumber;
                 row["Name"] = item.Name;
-                row["MonthBill"] = item.MonthBill;
+                row["MonthName"] = item.MonthName;
                 row["YearBill"] = item.YearBill;
                 row["PromotionCost"] = item.PromotionCost;
                 row["ExcessCost"] = item.ExcessCost;
                 row["AdditionalServiceFee"] = item.AdditionalServiceFee;
                 row["InterCallingCharge"] = item.InterCallingCharge;
                 row["TotalCost"] = item.TotalService;
-                row["VAT"] = item.VAT;
+                row["VAT"] = item.VAT.ToString("N2");
                 data.Rows.Add(row);
             }
             return data;
@@ -193,8 +195,8 @@ namespace phoneBill.Controllers
             ViewBag.ListTelephone = new SelectList(ListMember, "Telephone", "Telephone");
 
             //Select Option ListMonth
-            List<VMonth> ListMount = _db.VMonths.ToList();
-            ViewBag.ListMonth = new SelectList(ListMount, "Month", "Month");
+            List<VMonthlist> ListMount = _db.VMonthlists.ToList();
+            ViewBag.ListMonth = new SelectList(ListMount, "MonthID", "MonthName");
 
             //Select Option ListYear
             List<VBilllist> ListYear = _db.VBilllists.Where(s => s.DeleteStatus != true).GroupBy(s => s.YearBill).Select(s => new VBilllist { YearBill = s.Key }).ToList();

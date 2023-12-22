@@ -156,6 +156,15 @@
     <property name="Password" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="3404dd28-d69d-4081-bf72-6595f26dda6f">
       <column name="Password" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
     </property>
+    <property name="DateLogin" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="a0c6c8a0-f651-4633-906d-ff6233c163a0">
+      <column name="DateLogin" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="ImgProfile" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="d6fb8dbb-f4a2-4557-99d8-f0820bc82d00">
+      <column name="ImgProfile" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" value-generated="OnAdd" p1:ValidateRequired="false" p1:Guid="55b5cbcb-60dd-47de-b75e-57156e773832">
+      <column name="DeleteStatus" default="0" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
   </class>
   <class name="VUserAuth" entity-set="VUserAuths" table="V_UserAuth" schema="dbo" p1:Guid="7821f192-bda5-4048-aaa6-e3fed10921eb">
     <id name="ID" type="Int32" p1:ValidateRequired="true" p1:Guid="59c5d09d-7afd-4136-bd80-0ceeaa7500b0">
@@ -208,6 +217,15 @@
     </property>
     <property name="Password" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="e4f83d3f-ad4a-4638-98e8-80e31aef2453">
       <column name="Password" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="ImgProfile" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="75e5f90f-f4c4-4ca2-8fed-1354c003cbe1">
+      <column name="ImgProfile" not-null="False" sql-type="nvarchar(max)" p1:unicode="True" />
+    </property>
+    <property name="DeleteStatus" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="b10e5e4c-b272-4090-89a6-683ba2afd8ba">
+      <column name="DeleteStatus" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+    <property name="DateLogin" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="3f0ad449-f067-44c3-b79f-1c6542df13e6">
+      <column name="DateLogin" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
     </property>
   </class>
   <class name="Bill" entity-set="Bills" table="Bill" schema="dbo" p1:Guid="01bb27e5-4f20-40c8-b28e-311d9666a27a">
@@ -281,6 +299,50 @@
     </property>
     <property name="DeleteStatus" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3aa5b37c-c269-4aa0-a2c8-2d221c42ca36">
       <column name="DeleteStatus" not-null="False" sql-type="bit" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="VEmplist" entity-set="VEmplists" table="V_Emplist" schema="dbo" p1:Guid="bf6d83cc-13e5-4fe3-b60c-39525571ce8e">
+    <id name="EMPID" type="String" p1:ValidateMaxLength="20" p1:ValidateRequired="true" p1:Guid="7387e8d7-bfae-480a-a84b-538c19acec93">
+      <column name="EMP_ID" not-null="True" length="20" sql-type="nvarchar" p1:unicode="True" />
+    </id>
+    <property name="FIRSTNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="5d0a1846-2611-4931-a56a-d65f80fe3ba6">
+      <column name="FIRSTNAME" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SURNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="bde37a8d-f9fe-428f-bc6d-d46f2a66c772">
+      <column name="SURNAME" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="IDCARD" type="String" p1:nullable="True" p1:ValidateMaxLength="13" p1:ValidateRequired="false" p1:Guid="8d0922e5-b7d1-45c8-a90a-aa0cad8cf5c7">
+      <column name="ID_CARD" not-null="False" length="13" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Fullname" type="String" p1:nullable="True" p1:ValidateMaxLength="102" p1:ValidateRequired="false" p1:Guid="882d5d8f-b4e9-42ed-86e9-8d1bdd2c90a6">
+      <column name="Fullname" not-null="False" length="102" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Level" type="String" p1:nullable="True" p1:ValidateMaxLength="20" p1:ValidateRequired="false" p1:Guid="0ab228b2-2c48-45cd-bac8-d3414a0569e9">
+      <column name="Level" not-null="False" length="20" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="POSITION" type="String" p1:nullable="True" p1:ValidateMaxLength="1000" p1:ValidateRequired="false" p1:Guid="17484c59-a583-4042-ae38-dccbc0b11e52">
+      <column name="POSITION" not-null="False" length="1000" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="DEPNAME" type="String" p1:nullable="True" p1:ValidateMaxLength="200" p1:ValidateRequired="false" p1:Guid="df10a785-4ede-42da-95d5-0bc71854fcf3">
+      <column name="DEP_NAME" not-null="False" length="200" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SecName" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="fbc47e5a-23ca-4374-9ab4-4f164f20340d">
+      <column name="sec_name" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="Expr1" type="String" p1:nullable="True" p1:ValidateMaxLength="124" p1:ValidateRequired="false" p1:Guid="b00f5bb8-04e2-41b7-baca-138588b07f6a">
+      <column name="Expr1" not-null="False" length="124" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="ENDDATE" type="DateTime" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="0234c43a-3768-48c1-b541-e79c8a70c6e3">
+      <column name="END_DATE" not-null="False" sql-type="datetime" p1:unicode="False" />
+    </property>
+    <property name="DEPID" type="String" p1:nullable="True" p1:ValidateMaxLength="4" p1:ValidateRequired="false" p1:Guid="f24f12fa-a630-4ba6-bb80-940d328422a6">
+      <column name="DEP_ID" not-null="False" length="4" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="NAMEENG" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="30419ba9-d5e0-4613-a071-7c30753cc3e7">
+      <column name="NAME_ENG" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
+    </property>
+    <property name="SURNAMEENG" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="01d58c22-256b-4a0f-8c91-f859c0215168">
+      <column name="SURNAME_ENG" not-null="False" length="50" sql-type="nvarchar" p1:unicode="True" />
     </property>
   </class>
   <method name="DateOnly" p1:procedure="dbo.dateOnly" p1:Guid="2a545e9a-5f74-416c-aa5a-19ab472f666a">
